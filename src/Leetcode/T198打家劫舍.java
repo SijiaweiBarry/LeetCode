@@ -5,39 +5,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class T198打家劫舍 {
-
-    public static int findUnsortedSubarray(int[] nums) {
-        List<Integer>list=new ArrayList<>();
-        for (int i = 0; i <nums.length ; i++) {
-            list.add(nums[i]);
-        }
-        Collections.sort(list);
-
-        int start=0;
-        int end=0;
-        for (int i = 0; i <nums.length ; i++) {
-            if (nums[i]!=list.get(i)) {
-                start = i;
-                break;
-            }
-            if (i==nums.length-1){
+        public int rob(int[] nums) {
+            if(nums.length==0)
                 return 0;
+            if(nums.length==1)
+                return nums[0];
+            int arr[]=new int[nums.length];
+            arr[0]=nums[0];
+            arr[1]=Math.max(nums[1],nums[0]);
+            for (int i = 2; i <arr.length ; i++) {
+                arr[i]=Math.max(arr[i-2]+nums[i],arr[i-1]);
             }
-
+            return arr[arr.length-1];
         }
-        for (int i = nums.length-1; i >=0 ; i--) {
-            if (nums[i]!=list.get(i)) {
-                end = i;
-                break;
-            }
-        }
-
-        return end-start+1;
-
-    }
-
-    public static void main(String[] args) {
-        int nums[]={2, 6, 4, 8, 10, 9, 15};
-        System.out.println(findUnsortedSubarray(nums));
-    }
 }

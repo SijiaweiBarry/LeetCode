@@ -36,7 +36,7 @@ public class TestQuickSort {
     }
 
     public static void main(String[] args) {
-        int[]arr={5,2,3,1};
+        int[]arr={1,2,3,2,3,1,5,4,3};
         quickSort(arr,0,arr.length-1);
         for (int i : arr) {
             System.out.print(i+" ");

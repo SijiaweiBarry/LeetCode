@@ -2,49 +2,32 @@ package DesignPattern.Singleton;
 
 
 
+import sun.reflect.generics.tree.Tree;
+
 import java.util.*;
 public class Main {
-    public static String longestPalindrome(String s) {
-        int length = s.length();
-        String res = "";
-        boolean dp[][] = new boolean[length][length];
-        for (int len = 1; len <=length ; len++) {
-            for (int start = 0; start < length ; start++) {
-                int end = start + len -1;
-                if (end >= length){
+
+    public static int[] solution(int[]nums){
+        int []res = new int[nums.length];
+        for (int i = res.length-2; i >=0 ; i--) {
+            for (int j = i+1; j < res.length; j+=res[j]) {
+                if (nums[i]<nums[j]){
+                    res[i] = j-i;
                     break;
-                }
-                dp[start][end] = (len==1||len==2||dp[start+1][end-1])&&(s.charAt(start)==s.charAt(end));
-                if (dp[start][end]&&len>res.length()){
-                    res = s.substring(start,end+1);
+                }else if (res[j]==0){
+                    res[i] = 0;
+                    break;
                 }
             }
         }
         return res;
     }
+
     public static void main(String[] args) {
-            Scanner sc = new Scanner(System.in);
-            String s = sc.nextLine();
-            if(s==null||s.length()==0){
-                System.out.println("");
-                return;
+        int []test = new int[]{23,24,25,21,19,22,26,23};
+        int[] solution = solution(test);
+        for (int i : solution) {
+            System.out.println(i);
         }
-            String s1 = longestPalindrome(s);
-            int length = s.length()-s1.length();
-            if (length==0){
-                System.out.println(s1);
-                return;
-            }else {
-                StringBuilder sb = new StringBuilder(s);
-                StringBuilder res = new StringBuilder("");
-                for (int i = 0; i <length ; i++) {
-                    res.append(s.charAt(s.length()-1-i));
-                }
-                res.append(sb);
-                System.out.println(res);
-            }
     }
-
-
 }
-

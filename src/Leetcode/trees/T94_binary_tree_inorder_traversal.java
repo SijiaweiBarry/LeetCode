@@ -6,6 +6,7 @@ package Leetcode.trees;
  */
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -35,40 +36,19 @@ public class T94_binary_tree_inorder_traversal {
       TreeNode right;
       TreeNode(int x) { val = x; }
   }
-    List<Integer>ans = new ArrayList<>();
     public List<Integer> inorderTraversal(TreeNode root) {
-        if (root==null){
-            return ans;
-        }
-        help(root);
-        return ans;
-    }
-
-    private void help(TreeNode root) {
-        if (root==null){
-            return;
-        }
-        help(root.left);
-        ans.add(root.val);
-        help(root.right);
-    }
-
-    public List<Integer> inorderTraversal1(TreeNode root) {
-        List<Integer>ans1 = new ArrayList<>();
-        if (root==null){
-            return ans1;
-        }
-        Stack<TreeNode>stack = new Stack<>();
+        LinkedList<Integer>ans = new LinkedList<>();
+        LinkedList<TreeNode>stack = new LinkedList<>();
         TreeNode cur = root;
         while (cur!=null||!stack.isEmpty()){
             while (cur!=null){
-                stack.push(cur);
+                stack.add(cur);
                 cur = cur.left;
             }
-            cur = stack.pop();
-            ans1.add(cur.val);
+            cur = stack.pollLast();
+            ans.add(cur.val);
             cur = cur.right;
         }
-        return ans1;
+        return ans;
     }
 }
